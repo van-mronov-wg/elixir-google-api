@@ -22,7 +22,7 @@ defmodule GoogleApi.Admin.Reports_v1.Api.Activities do
   """
 
   alias GoogleApi.Admin.Reports_v1.Connection
-  alias GoogleApi.Gax.{Request, Response}
+  import GoogleApi.Admin.Reports_v1.RequestBuilder
 
   @doc """
   Retrieves a list of activities for a specific customer and application.
@@ -75,18 +75,16 @@ defmodule GoogleApi.Admin.Reports_v1.Api.Activities do
       :startTime => :query
     }
 
-    request =
-      Request.new()
-      |> Request.method(:get)
-      |> Request.url("/activity/users/{userKey}/applications/{applicationName}", %{
-        "userKey" => URI.encode_www_form(user_key),
-        "applicationName" => URI.encode_www_form(application_name)
-      })
-      |> Request.add_optional_params(optional_params, opts)
-
-    connection
-    |> Connection.execute(request)
-    |> Response.decode(struct: %GoogleApi.Admin.Reports_v1.Model.Activities{})
+    %{}
+    |> method(:get)
+    |> url("/activity/users/{userKey}/applications/{applicationName}", %{
+      "userKey" => URI.encode_www_form(user_key),
+      "applicationName" => URI.encode_www_form(application_name)
+    })
+    |> add_optional_params(optional_params, opts)
+    |> Enum.into([])
+    |> (&Connection.request(connection, &1)).()
+    |> decode(%GoogleApi.Admin.Reports_v1.Model.Activities{})
   end
 
   @doc """
@@ -142,17 +140,15 @@ defmodule GoogleApi.Admin.Reports_v1.Api.Activities do
       :resource => :body
     }
 
-    request =
-      Request.new()
-      |> Request.method(:post)
-      |> Request.url("/activity/users/{userKey}/applications/{applicationName}/watch", %{
-        "userKey" => URI.encode_www_form(user_key),
-        "applicationName" => URI.encode_www_form(application_name)
-      })
-      |> Request.add_optional_params(optional_params, opts)
-
-    connection
-    |> Connection.execute(request)
-    |> Response.decode(struct: %GoogleApi.Admin.Reports_v1.Model.Channel{})
+    %{}
+    |> method(:post)
+    |> url("/activity/users/{userKey}/applications/{applicationName}/watch", %{
+      "userKey" => URI.encode_www_form(user_key),
+      "applicationName" => URI.encode_www_form(application_name)
+    })
+    |> add_optional_params(optional_params, opts)
+    |> Enum.into([])
+    |> (&Connection.request(connection, &1)).()
+    |> decode(%GoogleApi.Admin.Reports_v1.Model.Channel{})
   end
 end

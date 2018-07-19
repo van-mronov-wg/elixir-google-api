@@ -28,29 +28,29 @@ defmodule GoogleApi.Admin.Reports_v1.Model.ActivityActor do
   - profileId (String.t): Obfuscated user id of the user. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :callerType => any(),
-          :email => any(),
-          :key => any(),
-          :profileId => any()
+          callerType: any(),
+          email: any(),
+          key: any(),
+          profileId: any()
         }
 
-  field(:callerType)
-  field(:email)
-  field(:key)
-  field(:profileId)
+  defstruct [
+    :callerType,
+    :email,
+    :key,
+    :profileId
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityActor do
-  def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.ActivityActor.decode(value, options)
+  def decode(value, _options) do
+    value
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityActor do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

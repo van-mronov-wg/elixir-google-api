@@ -28,29 +28,29 @@ defmodule GoogleApi.Admin.Reports_v1.Model.ActivityId do
   - uniqueQualifier (String.t): Unique qualifier if multiple events have the same time. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :applicationName => any(),
-          :customerId => any(),
-          :time => DateTime.t(),
-          :uniqueQualifier => any()
+          applicationName: any(),
+          customerId: any(),
+          time: any(),
+          uniqueQualifier: any()
         }
 
-  field(:applicationName)
-  field(:customerId)
-  field(:time, as: DateTime)
-  field(:uniqueQualifier)
+  defstruct [
+    :applicationName,
+    :customerId,
+    :time,
+    :uniqueQualifier
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityId do
-  def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.ActivityId.decode(value, options)
+  def decode(value, _options) do
+    value
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityId do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

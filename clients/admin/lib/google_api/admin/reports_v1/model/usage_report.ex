@@ -29,31 +29,40 @@ defmodule GoogleApi.Admin.Reports_v1.Model.UsageReport do
   - kind (String.t): The kind of object. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :parameters => list(GoogleApi.Admin.Reports_v1.Model.UsageReportParameters.t()),
-          :date => any(),
-          :entity => GoogleApi.Admin.Reports_v1.Model.UsageReportEntity.t(),
-          :etag => any(),
-          :kind => any()
+          parameters: list(GoogleApi.Admin.Reports_v1.Model.UsageReportParameters.t()),
+          date: any(),
+          entity: GoogleApi.Admin.Reports_v1.Model.UsageReportEntity.t(),
+          etag: any(),
+          kind: any()
         }
 
-  field(:parameters, as: GoogleApi.Admin.Reports_v1.Model.UsageReportParameters, type: :list)
-  field(:date)
-  field(:entity, as: GoogleApi.Admin.Reports_v1.Model.UsageReportEntity)
-  field(:etag)
-  field(:kind)
+  defstruct [
+    :parameters,
+    :date,
+    :entity,
+    :etag,
+    :kind
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReport do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.UsageReport.decode(value, options)
+    value
+    |> deserialize(
+      :parameters,
+      :list,
+      GoogleApi.Admin.Reports_v1.Model.UsageReportParameters,
+      options
+    )
+    |> deserialize(:entity, :struct, GoogleApi.Admin.Reports_v1.Model.UsageReportEntity, options)
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReport do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

@@ -28,29 +28,32 @@ defmodule GoogleApi.Admin.Reports_v1.Model.Activities do
   - nextPageToken (String.t): Token for retrieving the next page Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :etag => any(),
-          :items => list(GoogleApi.Admin.Reports_v1.Model.Activity.t()),
-          :kind => any(),
-          :nextPageToken => any()
+          etag: any(),
+          items: list(GoogleApi.Admin.Reports_v1.Model.Activity.t()),
+          kind: any(),
+          nextPageToken: any()
         }
 
-  field(:etag)
-  field(:items, as: GoogleApi.Admin.Reports_v1.Model.Activity, type: :list)
-  field(:kind)
-  field(:nextPageToken)
+  defstruct [
+    :etag,
+    :items,
+    :kind,
+    :nextPageToken
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.Activities do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.Activities.decode(value, options)
+    value
+    |> deserialize(:items, :list, GoogleApi.Admin.Reports_v1.Model.Activity, options)
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.Activities do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

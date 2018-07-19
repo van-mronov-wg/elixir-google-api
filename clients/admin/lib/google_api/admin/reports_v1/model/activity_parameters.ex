@@ -30,33 +30,33 @@ defmodule GoogleApi.Admin.Reports_v1.Model.ActivityParameters do
   - value (String.t): String value of the parameter. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :boolValue => any(),
-          :intValue => any(),
-          :multiIntValue => list(any()),
-          :multiValue => list(any()),
-          :name => any(),
-          :value => any()
+          boolValue: any(),
+          intValue: any(),
+          multiIntValue: any(),
+          multiValue: any(),
+          name: any(),
+          value: any()
         }
 
-  field(:boolValue)
-  field(:intValue)
-  field(:multiIntValue, type: :list)
-  field(:multiValue, type: :list)
-  field(:name)
-  field(:value)
+  defstruct [
+    :boolValue,
+    :intValue,
+    :multiIntValue,
+    :multiValue,
+    :name,
+    :value
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityParameters do
-  def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.ActivityParameters.decode(value, options)
+  def decode(value, _options) do
+    value
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityParameters do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

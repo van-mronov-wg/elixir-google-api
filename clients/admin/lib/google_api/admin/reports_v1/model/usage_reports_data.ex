@@ -26,25 +26,25 @@ defmodule GoogleApi.Admin.Reports_v1.Model.UsageReportsData do
   - value (String.t): Value associated with a key-value pair to give detailed information on the warning. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :key => any(),
-          :value => any()
+          key: any(),
+          value: any()
         }
 
-  field(:key)
-  field(:value)
+  defstruct [
+    :key,
+    :value
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportsData do
-  def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.UsageReportsData.decode(value, options)
+  def decode(value, _options) do
+    value
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportsData do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

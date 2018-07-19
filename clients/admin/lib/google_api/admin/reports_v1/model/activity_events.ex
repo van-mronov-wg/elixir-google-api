@@ -27,27 +27,35 @@ defmodule GoogleApi.Admin.Reports_v1.Model.ActivityEvents do
   - type (String.t): Type of event. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :parameters => list(GoogleApi.Admin.Reports_v1.Model.ActivityParameters.t()),
-          :name => any(),
-          :type => any()
+          parameters: list(GoogleApi.Admin.Reports_v1.Model.ActivityParameters.t()),
+          name: any(),
+          type: any()
         }
 
-  field(:parameters, as: GoogleApi.Admin.Reports_v1.Model.ActivityParameters, type: :list)
-  field(:name)
-  field(:type)
+  defstruct [
+    :parameters,
+    :name,
+    :type
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityEvents do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.ActivityEvents.decode(value, options)
+    value
+    |> deserialize(
+      :parameters,
+      :list,
+      GoogleApi.Admin.Reports_v1.Model.ActivityParameters,
+      options
+    )
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.ActivityEvents do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

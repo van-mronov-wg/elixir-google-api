@@ -29,31 +29,31 @@ defmodule GoogleApi.Admin.Reports_v1.Model.UsageReportEntity do
   - userEmail (String.t): user&#39;s email. Only relevant if entity.type &#x3D; \&quot;USER\&quot; Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :customerId => any(),
-          :entityId => any(),
-          :profileId => any(),
-          :type => any(),
-          :userEmail => any()
+          customerId: any(),
+          entityId: any(),
+          profileId: any(),
+          type: any(),
+          userEmail: any()
         }
 
-  field(:customerId)
-  field(:entityId)
-  field(:profileId)
-  field(:type)
-  field(:userEmail)
+  defstruct [
+    :customerId,
+    :entityId,
+    :profileId,
+    :type,
+    :userEmail
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportEntity do
-  def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.UsageReportEntity.decode(value, options)
+  def decode(value, _options) do
+    value
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportEntity do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

@@ -34,41 +34,41 @@ defmodule GoogleApi.Admin.Reports_v1.Model.Channel do
   - type (String.t): The type of delivery mechanism used for this channel. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :address => any(),
-          :expiration => any(),
-          :id => any(),
-          :kind => any(),
-          :params => map(),
-          :payload => any(),
-          :resourceId => any(),
-          :resourceUri => any(),
-          :token => any(),
-          :type => any()
+          address: any(),
+          expiration: any(),
+          id: any(),
+          kind: any(),
+          params: any(),
+          payload: any(),
+          resourceId: any(),
+          resourceUri: any(),
+          token: any(),
+          type: any()
         }
 
-  field(:address)
-  field(:expiration)
-  field(:id)
-  field(:kind)
-  field(:params, type: :map)
-  field(:payload)
-  field(:resourceId)
-  field(:resourceUri)
-  field(:token)
-  field(:type)
+  defstruct [
+    :address,
+    :expiration,
+    :id,
+    :kind,
+    :params,
+    :payload,
+    :resourceId,
+    :resourceUri,
+    :token,
+    :type
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.Channel do
-  def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.Channel.decode(value, options)
+  def decode(value, _options) do
+    value
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.Channel do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

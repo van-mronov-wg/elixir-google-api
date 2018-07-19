@@ -1,6 +1,6 @@
-# GoogleApi.Admin.Reports_v1
+# GoogleApi.Admin.Directory_v1
 
-Fetches reports for the administrators of G Suite customers about the usage, collaboration, security, and risk for their users.
+Manages enterprise resources such as users and groups, administrative notifications, security features, and more.
 
 ## Installation
 

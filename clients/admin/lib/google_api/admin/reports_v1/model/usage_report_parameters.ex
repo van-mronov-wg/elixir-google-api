@@ -30,33 +30,37 @@ defmodule GoogleApi.Admin.Reports_v1.Model.UsageReportParameters do
   - stringValue (String.t): String value of the parameter. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :boolValue => any(),
-          :datetimeValue => DateTime.t(),
-          :intValue => any(),
-          :msgValue => list(GoogleApi.Admin.Reports_v1.Model.Object.t()),
-          :name => any(),
-          :stringValue => any()
+          boolValue: any(),
+          datetimeValue: any(),
+          intValue: any(),
+          msgValue: list(GoogleApi.Admin.Reports_v1.Model.Object.t()),
+          name: any(),
+          stringValue: any()
         }
 
-  field(:boolValue)
-  field(:datetimeValue, as: DateTime)
-  field(:intValue)
-  field(:msgValue, as: GoogleApi.Admin.Reports_v1.Model.Object, type: :list)
-  field(:name)
-  field(:stringValue)
+  defstruct [
+    :boolValue,
+    :datetimeValue,
+    :intValue,
+    :msgValue,
+    :name,
+    :stringValue
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportParameters do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.UsageReportParameters.decode(value, options)
+    value
+    |> deserialize(:datetimeValue, :date, nil, options)
+    |> deserialize(:msgValue, :list, GoogleApi.Admin.Reports_v1.Model.Object, options)
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportParameters do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

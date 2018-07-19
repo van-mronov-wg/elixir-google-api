@@ -29,31 +29,40 @@ defmodule GoogleApi.Admin.Reports_v1.Model.UsageReports do
   - warnings ([UsageReportsWarnings]): Warnings if any. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :etag => any(),
-          :kind => any(),
-          :nextPageToken => any(),
-          :usageReports => list(GoogleApi.Admin.Reports_v1.Model.UsageReport.t()),
-          :warnings => list(GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings.t())
+          etag: any(),
+          kind: any(),
+          nextPageToken: any(),
+          usageReports: list(GoogleApi.Admin.Reports_v1.Model.UsageReport.t()),
+          warnings: list(GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings.t())
         }
 
-  field(:etag)
-  field(:kind)
-  field(:nextPageToken)
-  field(:usageReports, as: GoogleApi.Admin.Reports_v1.Model.UsageReport, type: :list)
-  field(:warnings, as: GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings, type: :list)
+  defstruct [
+    :etag,
+    :kind,
+    :nextPageToken,
+    :usageReports,
+    :warnings
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReports do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.UsageReports.decode(value, options)
+    value
+    |> deserialize(:usageReports, :list, GoogleApi.Admin.Reports_v1.Model.UsageReport, options)
+    |> deserialize(
+      :warnings,
+      :list,
+      GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings,
+      options
+    )
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReports do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

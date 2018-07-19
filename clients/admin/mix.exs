@@ -1,7 +1,7 @@
-defmodule GoogleApi.Admin.Reports_v1.Mixfile do
+defmodule GoogleApi.Admin.Directory_v1.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.0.1"
 
   def project do
     [app: :google_api_admin,
@@ -12,7 +12,7 @@ defmodule GoogleApi.Admin.Reports_v1.Mixfile do
      description: description(),
      package: package(),
      deps: deps(),
-     source_url: "https://github.com/GoogleCloudPlatform/elixir-google-api/tree/master/clients/admin"
+     source_url: "https://github.com/GoogleCloudPlatform/elixir-google-api/tree/master/clients/FIXME"
     ]
   end
 
@@ -22,14 +22,16 @@ defmodule GoogleApi.Admin.Reports_v1.Mixfile do
 
   defp deps() do
     [
-      {:google_gax, "~> 0.1.0"},
-      {:ex_doc, "~> 0.16", only: :dev}
+      {:tesla, "~> 0.8"},
+      {:poison, ">= 1.0.0"},
+      {:ex_doc, "~> 0.16", only: :dev},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
   end
 
   defp description() do
     """
-    Fetches reports for the administrators of G Suite customers about the usage, collaboration, security, and risk for their users.
+    Manages enterprise resources such as users and groups, administrative notifications, security features, and more.
     """
   end
 
@@ -39,8 +41,8 @@ defmodule GoogleApi.Admin.Reports_v1.Mixfile do
       maintainers: ["Jeff Ching"],
       licenses: ["Apache 2.0"],
       links: %{
-        "GitHub" => "https://github.com/GoogleCloudPlatform/elixir-google-api/tree/master/clients/admin",
-        "Homepage" => "https://developers.google.com/admin-sdk/reports/"
+        "GitHub" => "https://github.com/GoogleCloudPlatform/elixir-google-api/tree/master/clients/FIXME",
+        "Homepage" => "https://developers.google.com/admin-sdk/directory/"
       }
     ]
   end

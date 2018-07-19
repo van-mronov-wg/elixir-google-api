@@ -31,35 +31,40 @@ defmodule GoogleApi.Admin.Reports_v1.Model.Activity do
   - ownerDomain (String.t): Domain of source customer. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :actor => GoogleApi.Admin.Reports_v1.Model.ActivityActor.t(),
-          :etag => any(),
-          :events => list(GoogleApi.Admin.Reports_v1.Model.ActivityEvents.t()),
-          :id => GoogleApi.Admin.Reports_v1.Model.ActivityId.t(),
-          :ipAddress => any(),
-          :kind => any(),
-          :ownerDomain => any()
+          actor: GoogleApi.Admin.Reports_v1.Model.ActivityActor.t(),
+          etag: any(),
+          events: list(GoogleApi.Admin.Reports_v1.Model.ActivityEvents.t()),
+          id: GoogleApi.Admin.Reports_v1.Model.ActivityId.t(),
+          ipAddress: any(),
+          kind: any(),
+          ownerDomain: any()
         }
 
-  field(:actor, as: GoogleApi.Admin.Reports_v1.Model.ActivityActor)
-  field(:etag)
-  field(:events, as: GoogleApi.Admin.Reports_v1.Model.ActivityEvents, type: :list)
-  field(:id, as: GoogleApi.Admin.Reports_v1.Model.ActivityId)
-  field(:ipAddress)
-  field(:kind)
-  field(:ownerDomain)
+  defstruct [
+    :actor,
+    :etag,
+    :events,
+    :id,
+    :ipAddress,
+    :kind,
+    :ownerDomain
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.Activity do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.Activity.decode(value, options)
+    value
+    |> deserialize(:actor, :struct, GoogleApi.Admin.Reports_v1.Model.ActivityActor, options)
+    |> deserialize(:events, :list, GoogleApi.Admin.Reports_v1.Model.ActivityEvents, options)
+    |> deserialize(:id, :struct, GoogleApi.Admin.Reports_v1.Model.ActivityId, options)
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.Activity do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end

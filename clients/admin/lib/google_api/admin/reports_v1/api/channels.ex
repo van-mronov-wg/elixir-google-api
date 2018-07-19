@@ -22,7 +22,7 @@ defmodule GoogleApi.Admin.Reports_v1.Api.Channels do
   """
 
   alias GoogleApi.Admin.Reports_v1.Connection
-  alias GoogleApi.Gax.{Request, Response}
+  import GoogleApi.Admin.Reports_v1.RequestBuilder
 
   @doc """
   Stop watching resources through this channel
@@ -58,14 +58,12 @@ defmodule GoogleApi.Admin.Reports_v1.Api.Channels do
       :resource => :body
     }
 
-    request =
-      Request.new()
-      |> Request.method(:post)
-      |> Request.url("/admin/reports_v1/channels/stop")
-      |> Request.add_optional_params(optional_params, opts)
-
-    connection
-    |> Connection.execute(request)
-    |> Response.decode(decode: false)
+    %{}
+    |> method(:post)
+    |> url("/admin/reports_v1/channels/stop")
+    |> add_optional_params(optional_params, opts)
+    |> Enum.into([])
+    |> (&Connection.request(connection, &1)).()
+    |> decode(false)
   end
 end

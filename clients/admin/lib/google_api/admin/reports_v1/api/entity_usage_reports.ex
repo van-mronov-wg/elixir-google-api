@@ -22,7 +22,7 @@ defmodule GoogleApi.Admin.Reports_v1.Api.EntityUsageReports do
   """
 
   alias GoogleApi.Admin.Reports_v1.Connection
-  alias GoogleApi.Gax.{Request, Response}
+  import GoogleApi.Admin.Reports_v1.RequestBuilder
 
   @doc """
   Retrieves a report which is a collection of properties / statistics for a set of objects.
@@ -75,18 +75,16 @@ defmodule GoogleApi.Admin.Reports_v1.Api.EntityUsageReports do
       :parameters => :query
     }
 
-    request =
-      Request.new()
-      |> Request.method(:get)
-      |> Request.url("/usage/{entityType}/{entityKey}/dates/{date}", %{
-        "entityType" => URI.encode_www_form(entity_type),
-        "entityKey" => URI.encode_www_form(entity_key),
-        "date" => URI.encode_www_form(date)
-      })
-      |> Request.add_optional_params(optional_params, opts)
-
-    connection
-    |> Connection.execute(request)
-    |> Response.decode(struct: %GoogleApi.Admin.Reports_v1.Model.UsageReports{})
+    %{}
+    |> method(:get)
+    |> url("/usage/{entityType}/{entityKey}/dates/{date}", %{
+      "entityType" => URI.encode_www_form(entity_type),
+      "entityKey" => URI.encode_www_form(entity_key),
+      "date" => URI.encode_www_form(date)
+    })
+    |> add_optional_params(optional_params, opts)
+    |> Enum.into([])
+    |> (&Connection.request(connection, &1)).()
+    |> decode(%GoogleApi.Admin.Reports_v1.Model.UsageReports{})
   end
 end

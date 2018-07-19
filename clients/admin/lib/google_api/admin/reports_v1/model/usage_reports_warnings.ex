@@ -27,27 +27,30 @@ defmodule GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings do
   - message (String.t): Human readable message for the warning. Defaults to: `null`.
   """
 
-  use GoogleApi.Gax.ModelBase
-
   @type t :: %__MODULE__{
-          :code => any(),
-          :data => list(GoogleApi.Admin.Reports_v1.Model.UsageReportsData.t()),
-          :message => any()
+          code: any(),
+          data: list(GoogleApi.Admin.Reports_v1.Model.UsageReportsData.t()),
+          message: any()
         }
 
-  field(:code)
-  field(:data, as: GoogleApi.Admin.Reports_v1.Model.UsageReportsData, type: :list)
-  field(:message)
+  defstruct [
+    :code,
+    :data,
+    :message
+  ]
 end
 
 defimpl Poison.Decoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings do
+  import GoogleApi.Admin.Reports_v1.Deserializer
+
   def decode(value, options) do
-    GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings.decode(value, options)
+    value
+    |> deserialize(:data, :list, GoogleApi.Admin.Reports_v1.Model.UsageReportsData, options)
   end
 end
 
 defimpl Poison.Encoder, for: GoogleApi.Admin.Reports_v1.Model.UsageReportsWarnings do
   def encode(value, options) do
-    GoogleApi.Gax.ModelBase.encode(value, options)
+    GoogleApi.Admin.Reports_v1.Deserializer.serialize_non_nil(value, options)
   end
 end
