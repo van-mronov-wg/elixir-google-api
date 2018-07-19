@@ -30,6 +30,11 @@
     "url": "https://www.googleapis.com/discovery/v1/apis/admin/reports_v1/rest"
   },
   {
+    "version": "v1",
+    "name": "AdminDirectory",
+    "url": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest"
+  },
+  {
     "version": "v1.4",
     "name": "AdSense",
     "url": "https://www.googleapis.com/discovery/v1/apis/adsense/v1.4/rest"
