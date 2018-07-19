@@ -38,7 +38,7 @@ defmodule GoogleApis.Generator.SwaggerCli do
   end
 
   defp generate_code(filename, client_library_name) do
-    tmp_dir = Temp.path!("codegen-out-#{client_library_name}")
+    tmp_dir = Temp.path!(prefix: "codegen-out-#{client_library_name}", basedir: "/tmp")
 
     docker_args = [
       "run",
@@ -100,6 +100,6 @@ defmodule GoogleApis.Generator.SwaggerCli do
   end
 
   defp ignorable_file(filename) do
-    String.strip(filename) != "" && !String.match?(filename, ~r/^\s*#/)
+    String.trim(filename) != "" && !String.match?(filename, ~r/^\s*#/)
   end
 end
