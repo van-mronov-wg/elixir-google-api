@@ -42,7 +42,7 @@ defmodule GoogleApis.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:tesla, "~> 0.5"},
+      {:tesla, "~> 1.0"},
       {:poison, ">= 1.0.0"},
       {:oauth2, "~> 0.9"},
       {:temp, "~> 0.4"}
